@@ -3,6 +3,9 @@ R Demo
 Pete Mohanty
 September 28, 2018
 
+R as calculator
+===============
+
 ``` r
 exp(1)
 ```
@@ -61,6 +64,54 @@ for(i in seq(2, 10, 2)){
     ## [1] 36
     ## [1] 64
     ## [1] 100
+
+``` r
+x <- runif(100, 0, 1) # as in 'random uniform' between 0 and 1
+y <- runif(100)       # between 0 and 1 actually the default...
+plot(x,y)
+```
+
+![](R_demo_files/figure-markdown_github/unnamed-chunk-1-1.png)
+
+Printing...
+===========
+
+When knitting to `PDF`, a bit of care is needed to stay in the margins. `strwrap()` (as in 'string wrap') is handy.
+
+``` r
+hacked <- "NEW YORK (AP) — Facebook reported a major security breach in which 50 million user accounts were accessed by unknown attackers. The stolen data allowed the attackers to 'seize control' of those user accounts, Facebook said. Facebook has logged out the 50 million breached users — plus another 40 million who were vulnerable to the attack. Users don’t need to change their Facebook passwords, it said. Facebook says it doesn’t know who is behind the attacks or where they’re based. In a call with reporters on Friday, CEO Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were hacked were misused."
+```
+
+And if you don't want line numbers, use `cat()` (as in `concatenate`).
+
+``` r
+strwrap(hacked, 90)    # 90 characters per line
+```
+
+    ## [1] "NEW YORK (AP) — Facebook reported a major security breach in which 50 million user"       
+    ## [2] "accounts were accessed by unknown attackers. The stolen data allowed the attackers to"    
+    ## [3] "'seize control' of those user accounts, Facebook said. Facebook has logged out the 50"    
+    ## [4] "million breached users — plus another 40 million who were vulnerable to the attack. Users"
+    ## [5] "don’t need to change their Facebook passwords, it said. Facebook says it doesn’t know who"
+    ## [6] "is behind the attacks or where they’re based. In a call with reporters on Friday, CEO"    
+    ## [7] "Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were"  
+    ## [8] "hacked were misused."
+
+``` r
+cat(strwrap(hacked, 90), sep = "\n")  # '\n' means 'new line'
+```
+
+    ## NEW YORK (AP) — Facebook reported a major security breach in which 50 million user
+    ## accounts were accessed by unknown attackers. The stolen data allowed the attackers to
+    ## 'seize control' of those user accounts, Facebook said. Facebook has logged out the 50
+    ## million breached users — plus another 40 million who were vulnerable to the attack. Users
+    ## don’t need to change their Facebook passwords, it said. Facebook says it doesn’t know who
+    ## is behind the attacks or where they’re based. In a call with reporters on Friday, CEO
+    ## Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were
+    ## hacked were misused.
+
+Text Vectors
+============
 
 ``` r
 letters
@@ -198,7 +249,7 @@ sort(table(chars))
 barplot(table(chars))
 ```
 
-![](R_demo_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](R_demo_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ``` r
 bigrams <- matrix(nrow = length(chars)/2)
@@ -221,6 +272,7 @@ while((i + 2) < length(chars)/3){
   trigrams[i] <- paste(chars[i:(i+2)], collapse="")
   i <- i + 1
 }
+
 tri.table <- sort(table(trigrams), decreasing = T)
 tri.table[1:10]
 ```
@@ -249,6 +301,4 @@ names(tri.table)[which(tri.table < 4 & tri.table > 2)]  # see https://en.wikiped
     ##  [1] "AJE" "ALS" "BME" "CKL" "CXB" "ELA" "EZV" "JES" "KLU" "KXB" "LAJ"
     ## [12] "LMS" "LVA" "MEL" "MKL" "VAL" "XBM"
 
-``` r
-# can you figure out the cipher and decrypt the message?
-```
+Can you figure out the cipher and decrypt the message?

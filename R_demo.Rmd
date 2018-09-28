@@ -5,6 +5,7 @@ date: "September 28, 2018"
 output: github_document
 ---
 
+# R as calculator
 
 ```{r}
 
@@ -24,6 +25,33 @@ for(i in seq(2, 10, 2)){
   print(i^2)
 }
 
+x <- runif(100, 0, 1) # as in 'random uniform' between 0 and 1
+y <- runif(100)       # between 0 and 1 actually the default...
+plot(x,y)
+```
+
+# Printing...
+
+When knitting to `PDF`, a bit of care is needed to stay in the margins. `strwrap()` (as in 'string wrap') is handy.   
+
+
+```{r}
+
+hacked <- "NEW YORK (AP) — Facebook reported a major security breach in which 50 million user accounts were accessed by unknown attackers. The stolen data allowed the attackers to 'seize control' of those user accounts, Facebook said. Facebook has logged out the 50 million breached users — plus another 40 million who were vulnerable to the attack. Users don’t need to change their Facebook passwords, it said. Facebook says it doesn’t know who is behind the attacks or where they’re based. In a call with reporters on Friday, CEO Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were hacked were misused."
+
+```
+
+And if you don't want line numbers, use `cat()` (as in `concatenate`).  
+
+```{r}
+
+strwrap(hacked, 90)    # 90 characters per line
+cat(strwrap(hacked, 90), sep = "\n")  # '\n' means 'new line'
+```
+
+# Text Vectors
+
+```{r}
 letters
 match("t", letters)
 
@@ -78,6 +106,7 @@ while((i + 2) < length(chars)/3){
   trigrams[i] <- paste(chars[i:(i+2)], collapse="")
   i <- i + 1
 }
+
 tri.table <- sort(table(trigrams), decreasing = T)
 tri.table[1:10]
 # alternative display...
@@ -85,6 +114,6 @@ names(tri.table)[which(tri.table > 5)]
 names(tri.table)[which(tri.table == 5)]
 names(tri.table)[which(tri.table < 4 & tri.table > 2)]  # see https://en.wikipedia.org/wiki/Trigram
 
-# can you figure out the cipher and decrypt the message?
-```
 
+```
+Can you figure out the cipher and decrypt the message?
