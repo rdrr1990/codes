@@ -3,6 +3,10 @@ R Demo
 Pete Mohanty
 September 28, 2018
 
+[Available here](https://bit.ly/2R8WUcX)
+
+![Batman vs Superman](R_demo_files/batman_superman.png) (image from [here](http://ucanalytics.com/blogs/r-vs-python-comparison-and-awsome-books-free-pdfs-to-learn-them/))
+
 R as calculator
 ===============
 

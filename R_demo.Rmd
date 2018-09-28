@@ -5,6 +5,13 @@ date: "September 28, 2018"
 output: github_document
 ---
 
+Code for Today: https://bit.ly/2R8WUcX
+[Raw source for today](https://raw.githubusercontent.com/rdrr1990/codes/master/R_demo.Rmd)
+
+![Batman vs Superman](R_demo_files/batman_superman.png)
+(image from [here](http://ucanalytics.com/blogs/r-vs-python-comparison-and-awsome-books-free-pdfs-to-learn-them/))
+
+
 # R as calculator
 
 ```{r}
