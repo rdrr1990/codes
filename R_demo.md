@@ -67,11 +67,16 @@ for(i in seq(2, 10, 2)){
 
 ``` r
 x <- runif(100, 0, 1) # as in 'random uniform' between 0 and 1
-y <- runif(100)       # between 0 and 1 actually the default...
-plot(x,y)
+plot(x, exp(x))
 ```
 
 ![](R_demo_files/figure-markdown_github/unnamed-chunk-1-1.png)
+
+``` r
+plot(x, exp(x), main = "Exponential Function", ylim = c(0, 3))
+```
+
+![](R_demo_files/figure-markdown_github/unnamed-chunk-1-2.png)
 
 Printing...
 ===========
@@ -79,10 +84,11 @@ Printing...
 When knitting to `PDF`, a bit of care is needed to stay in the margins. `strwrap()` (as in 'string wrap') is handy.
 
 ``` r
-hacked <- "NEW YORK (AP) — Facebook reported a major security breach in which 50 million user accounts were accessed by unknown attackers. The stolen data allowed the attackers to 'seize control' of those user accounts, Facebook said. Facebook has logged out the 50 million breached users — plus another 40 million who were vulnerable to the attack. Users don’t need to change their Facebook passwords, it said. Facebook says it doesn’t know who is behind the attacks or where they’re based. In a call with reporters on Friday, CEO Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were hacked were misused."
-```
+hacked <- "NEW YORK (AP) — Facebook reported a major security breach in which 50 million user accounts were accessed by unknown attackers. The stolen data allowed the attackers to 'seize control' of those user accounts, Facebook said. Facebook has logged out the 50 million breached users — plus another 40 million who were vulnerable to the attack. Users don’t need to change their Facebook passwords, it said. Facebook says it doesn’t know who is behind the attacks or where they’re based. In a call with reporters on Friday, CEO Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were hacked were misused."  
 
-And if you don't want line numbers, use `cat()` (as in `concatenate`).
+# MATT O’BRIEN AND MAE ANDERSON, AP NEWS 9/28/18  
+# https://bit.ly/2InJeXx
+```
 
 ``` r
 strwrap(hacked, 90)    # 90 characters per line
@@ -96,6 +102,8 @@ strwrap(hacked, 90)    # 90 characters per line
     ## [6] "is behind the attacks or where they’re based. In a call with reporters on Friday, CEO"    
     ## [7] "Mark Zuckerberg said that the company doesn’t know yet if any of the accounts that were"  
     ## [8] "hacked were misused."
+
+And if you don't want line numbers, use `cat()` (as in `concatenate`).
 
 ``` r
 cat(strwrap(hacked, 90), sep = "\n")  # '\n' means 'new line'
@@ -249,7 +257,15 @@ sort(table(chars))
 barplot(table(chars))
 ```
 
-![](R_demo_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](R_demo_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+Or the same plot again with smaller labels (`cex` abbreviates 'character expansion' relative to default size of 1.)
+
+``` r
+barplot(table(chars), cex.names = 0.75)
+```
+
+![](R_demo_files/figure-markdown_github/unnamed-chunk-7-1.png) \# Bigrams and Trigrams
 
 ``` r
 bigrams <- matrix(nrow = length(chars)/2)
