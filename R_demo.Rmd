@@ -1,0 +1,90 @@
+---
+title: "R Demo"
+author: "Pete Mohanty"
+date: "September 28, 2018"
+output: github_document
+---
+
+
+```{r}
+
+exp(1)
+exp(2)
+exp(1)*exp(2)
+
+for(i in 1:10){
+  print(i^2)
+}
+
+for(i in seq(1, 10, 2)){
+  print(i^2)
+}
+
+for(i in seq(2, 10, 2)){
+  print(i^2)
+}
+
+letters
+match("t", letters)
+
+LETTERS
+match("q", LETTERS)
+match("Q", LETTERS)
+"Q" %in% LETTERS
+"Q" %in% letters
+"Q" %in% c(letters, LETTERS)
+
+tolower(LETTERS) == letters
+LETTERS == toupper(letters)
+
+letters[3]
+letters[c(8,9)]
+
+ROT13 <- c(letters[14:26], letters[1:13]) # Caesar shift of 13
+match("b", ROT13)
+LETTERS[match("b", ROT13)] # encrypted
+LETTERS[match("o", ROT13)] # and symmetric
+
+cipher.message <- LETTERS[match(c("h", "e", "l", "l", "o", "w", "o", "r", "l", "d"),
+                                ROT13)]
+LETTERS[match(tolower(cipher.message), ROT13)]
+
+```
+
+# Exercise
+
+```{r}
+
+cipher.txt <- "SQKLE SAXLE ZVKUI BASTE MKLUT SQKZE BMKVS KZKUS BXLAU VOTEM KLUTA LSQKF XBZYA VILYK BSEGA LMEWE RXBBK XBMEL AJESA XLWKB MALMA SVXCC KLVAN KELYY KCKLV ANKXB MELAJ ESAXL VALSQ KQXOK XCWEG ALMSQ KWWXB KEYKO SESCE UALMS QKYAM ASEZS QBKES VXCSQ KNANAVS UKLSI BTEUU XBYAL MSXUI BBKLS ELYCX BWKBX CCAUA EZVAL OZEUK XCSQK VAMLE ZVALS KZZAM KLUKE LYALC XBWES AXLEV VIBEL UKYAB KUSXB ESKVS QKXBM ELAJE SAXLV SQESQ AVSXB AUEZZ TQENK VOAKY XLCXB KAMLS EBMKS VELYY KCKLY KYUZE VVACA KYLKS FXBGV EMEAL VSVOT ALMBK VOKUS ANKZT SQKLV EAVUB KESAL MEYAB KUSXB ESKXC XOKBE SAXLV SQESU XWDAL KVSQK XOKBE SAXLE ZKZKW KLSVX CKEUQ SQAVS BEYAS AXLEZ EOOBX EUQFK QENKF QKBKF KUBKE SKYSQ KVKSF XUTZA LYKBV XCKHU KZZKL UKELY SQKLD IAZSF EZZVX CMBEL ASKDK SFKKL SQKWB KEZZT AVLXS SQKFE TCXBI VSXYX DIVAL KVVVE AYLVE YABKU SXBWA UQEKZ VBXMK BVQAL SALME SSQKB KXBME LAJES AXLYI DDKYL VENANAS QESAV KHOKU SKYSX DKOID ZAUZT BXZZK YXISS QAVFK KGFKN KMXSS XDKCZ ESFKN KMXSS XDKEM AZKFQ KLASU XWKVS XUTDK BALOE BSAUI ZEBSQ KZALK DKSFK KLUXZ ZKUSA XLUEO EDAZA SAKVE LYXIB XFLNI ZLKBE DAZAS AKVDK SFKKL SQKEU PIAVA SAXLX CVAML EZVAL SKZZA MKLUK ELYSQ KEVVI BELUK XCXIB XFLAL CXBWE SAXLA VNABS IEZZT LXLKH AVSKL SVEAY BKOEY EWDVU QACCU EZACS QKBEL GALMY KWXUB ESXLS QKQXI VKALS KZZAM KLUKU XWWAS SKKFQ ESAVE NIZLK BEDAZ ASTSX DKOES UQKYE SQXWK AVXCS KLEOX SKLSA EZUXZ ZKUSA XLXOO XBSIL ASTED BXEYE LYNAU KNKBV"
+chars <- unlist(strsplit(cipher.txt, split=NULL))
+chars <- chars[chars %in% LETTERS] # retains upper case letters only... 
+                                   # also can use "regular expressions"...
+                                   # cipher.txt <- gsub("[^[:alnum:]]", "", cipher.txt)
+                      # https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
+table(chars)
+sort(table(chars))
+barplot(table(chars))
+
+bigrams <- matrix(nrow = length(chars)/2)
+for(i in 1:length(chars)/2){
+  bigrams[i] <- paste(chars[i:(i+1)], collapse="")
+}
+sort(table(bigrams), decreasing = T)[1:20]       # for frequencies 
+                                                 # see https://en.wikipedia.org/wiki/Bigram
+
+trigrams <- matrix(nrow = (length(chars)/3) %/% 1)
+i <- 1
+while((i + 2) < length(chars)/3){
+  trigrams[i] <- paste(chars[i:(i+2)], collapse="")
+  i <- i + 1
+}
+tri.table <- sort(table(trigrams), decreasing = T)
+tri.table[1:10]
+# alternative display...
+names(tri.table)[which(tri.table > 5)]
+names(tri.table)[which(tri.table == 5)]
+names(tri.table)[which(tri.table < 4 & tri.table > 2)]  # see https://en.wikipedia.org/wiki/Trigram
+
+# can you figure out the cipher and decrypt the message?
+```
+
